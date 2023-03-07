@@ -8,5 +8,11 @@ export const useIssuesStore = defineStore('issues', () => {
   return {
     state,
     labels,
+    toggleLabel: (label: string) => {
+      if (labels.value.includes(label))
+        labels.value = labels.value.filter(l => l !== label);
+      else
+        labels.value.push(label);
+    }
   }
 })

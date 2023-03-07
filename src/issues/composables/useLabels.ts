@@ -1,7 +1,9 @@
+import { storeToRefs } from 'pinia'
 import { useQuery } from '@tanstack/vue-query'
 
 import { Label } from '../models/label.model'
 import { useFetch } from 'src/composable/useFetch'
+import { useIssuesStore } from 'src/stores/issues'
 
 const apiURL = process.env.GITHUB_URL
 
@@ -13,7 +15,11 @@ const getLabels = async () => {
 }
 
 export const useLabels = () => {
-  const labels = useQuery(
+
+  const store = useIssuesStore();
+  const { labels } = storeToRefs(store);
+
+  const lbls = useQuery(
     ['labels'],
     getLabels,
     {
@@ -21,9 +27,9 @@ export const useLabels = () => {
     }
   )
 
-  console.log('labels', labels.data.value)
-
   return {
-    labels
+    lbls,
+    selectedLabels: labels,
+    toggleLabel: store.toggleLabel
   }
 }
