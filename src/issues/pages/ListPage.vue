@@ -7,7 +7,7 @@ import FilterSelector from '../components/filter-selector/FilterSelector.vue';
 <template>
   <div class="row q-mb-md">
     <div class="col-12">
-      <span class="text-h4">GitHub Issuess</span>
+      <span class="text-h4">GitHub Issues</span>
     </div>
   </div>
 

@@ -1,4 +1,4 @@
-# Issuess App (issuess-app)
+# Issues App
 
 A Quasar Project
 

@@ -1,8 +1,8 @@
 {
-  "name": "issuess-app",
+  "name": "issues-app",
   "version": "0.0.1",
   "description": "A Quasar Project",
-  "productName": "Issuess App",
+  "productName": "Issues App",
   "author": "Frank Montalvo Ochoa <fgmo.dev@fmontalvoo.com>",
   "private": true,
   "scripts": {

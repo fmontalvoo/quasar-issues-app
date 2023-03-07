@@ -11,7 +11,7 @@
 
       <q-item-section>
         <q-item-label>
-          <router-link :to="`/${1}`">Algún título</router-link>
+          <router-link :to="{ name: 'issue-detail', params: { id: 1 } }">Algún título</router-link>
         </q-item-label>
         <q-item-label caption>
           2 days ago
