@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { useLabels } from 'src/issues/composables/useLabels';
 import LoaderSpinner from 'src/shared/components/LoaderSpinner.vue';
+
+const { labels } = useLabels();
 </script>
 
 <template>
