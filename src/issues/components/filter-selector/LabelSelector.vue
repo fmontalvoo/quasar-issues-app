@@ -6,11 +6,19 @@ const { labels } = useLabels();
 </script>
 
 <template>
-  <LoaderSpinner text="" :thickness="1" size="50px" />
+  <div class="q-mt-md">
+    <span class="text-h5 flex flex-center" style="color:red" v-if="labels.error.value">
+      {{ labels.error.value }}
+    </span>
 
-  <q-chip color="primary" v-for="label of 10" :key="label" outline clickable>
-    Chip
-  </q-chip>
+    <LoaderSpinner v-else-if="labels.isLoading.value" text="" :thickness="1" size="50px" />
+
+    <q-chip v-else :style="{
+      color: `#${label.color}`
+    }" v-for="label of labels.data.value" :key="label.id" outline clickable>
+      {{ label.name }}
+    </q-chip>
+  </div>
 </template>
 
 <style scoped></style>
