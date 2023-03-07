@@ -3,7 +3,7 @@
 
 <template>
   <div>
-    <h2>Issue</h2>
+    <h2>List</h2>
   </div>
 </template>
 
