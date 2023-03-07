@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IssueList from '../components/issue-list/IssueList.vue';
 import LoaderSpinner from 'src/shared/components/LoaderSpinner.vue';
 import FilterSelector from '../components/filter-selector/FilterSelector.vue';
 </script>
@@ -17,6 +18,8 @@ import FilterSelector from '../components/filter-selector/FilterSelector.vue';
 
     <div class="col-xs-12 col-md-8">
       <LoaderSpinner text="Cargando..." :thickness="5" size="3.5rem" />
+
+      <IssueList />
     </div>
   </div>
 </template>
