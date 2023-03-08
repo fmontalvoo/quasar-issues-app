@@ -2,6 +2,9 @@
 import IssueList from '../components/issue-list/IssueList.vue';
 import LoaderSpinner from 'src/shared/components/LoaderSpinner.vue';
 import FilterSelector from '../components/filter-selector/FilterSelector.vue';
+import { useIssues } from '../composables/useIssues';
+
+const { issuesQuery } = useIssues();
 </script>
 
 <template>
@@ -17,9 +20,13 @@ import FilterSelector from '../components/filter-selector/FilterSelector.vue';
     </div>
 
     <div class="col-xs-12 col-md-8">
-      <LoaderSpinner text="Cargando..." :thickness="5" size="3.5rem" />
+      <span class="text-h5 flex flex-center" style="color:red" v-if="issuesQuery.error.value">
+        {{ issuesQuery.error.value }}
+      </span>
 
-      <IssueList />
+      <LoaderSpinner v-else-if="issuesQuery.isLoading.value" text="Cargando..." :thickness="5" size="3.5rem" />
+
+      <IssueList v-else :issues="issuesQuery.data.value!" />
     </div>
   </div>
 </template>
