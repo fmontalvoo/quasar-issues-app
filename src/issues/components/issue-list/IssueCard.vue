@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import VueMarkdown from 'vue-markdown-render';
+
 import { Issue, State } from 'src/issues/models/issue.model';
+import { timeSince } from 'src/utils/time-since';
 
 defineProps<{
   issue: Issue;
@@ -20,7 +23,7 @@ defineProps<{
           <router-link :to="{ name: 'issue-detail', params: { id: issue.number } }">{{ issue.title }}</router-link>
         </q-item-label>
         <q-item-label caption>
-          {{ issue.updated_at }}
+          {{ timeSince(issue.updated_at.toString()) }} ago
         </q-item-label>
       </q-item-section>
 
@@ -39,8 +42,8 @@ defineProps<{
 
     <q-separator />
 
-    <q-item-section class="q-pa-md">
-      <code><pre>{{ issue.body }}</pre></code>
+    <q-item-section class="q-pa-md markdown">
+      <vue-markdown :source="issue.body" />
     </q-item-section>
 
     <q-separator />
@@ -58,5 +61,9 @@ defineProps<{
   </q-card>
 </template>
 
-<style scoped></style>
+<style>
+.markdown img {
+  width: 250px !important;
+}
+</style>
 
