@@ -43,7 +43,7 @@ defineProps<{
     <q-separator />
 
     <q-item-section class="q-pa-md markdown">
-      <vue-markdown :source="issue.body" />
+      <vue-markdown :source="issue.body ?? ''" />
     </q-item-section>
 
     <q-separator />

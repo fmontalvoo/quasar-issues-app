@@ -19,7 +19,7 @@ const getIssues = async () => {
 export const useIssues = () => {
   const issuesQuery = useQuery(
     ['issues'],
-    () => getIssues(),
+    getIssues,
     {
       staleTime: 1000 * 60 * 60,
     }
