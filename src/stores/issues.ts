@@ -1,9 +1,10 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
+import { State } from 'src/issues/models/issue.model';
 
 export const useIssuesStore = defineStore('issues', () => {
   const labels = ref<string[]>([]);
-  const state = ref<'all' | 'open' | 'closed'>('all');
+  const state = ref<State>(State.All);
 
   return {
     state,

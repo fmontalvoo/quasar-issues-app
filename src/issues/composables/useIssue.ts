@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/vue-query'
 
 import { Comment, Issue } from '../models/issue.model'
 import { useFetch } from 'src/composable/useFetch'
-import { computed } from 'vue'
+
 const apiURL = process.env.GITHUB_URL
 
 const getIssue = async (id: number) => {
