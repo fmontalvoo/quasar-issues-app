@@ -10,7 +10,7 @@ const props = defineProps<{
   issue: Issue;
 }>();
 
-const { prefetchIssue } = useIssue(props.issue.number, { enabled: false });
+const { prefetchIssue, setIssueCacheData } = useIssue(props.issue.number, { enabled: false });
 
 const onMoouseEnter = () => {
   console.info('onMoouseEnter', props.issue.number);

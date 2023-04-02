@@ -68,10 +68,15 @@ export const useIssue = (issueId: number, options?: Options) => {
     )
   }
 
+  const setIssueCacheData = (issue: Issue) => {
+    queryClient.setQueryData(['issue', issue.id], issue)
+  }
+
   return {
     issueQuery,
     commentsQuery,
     prefetchIssue,
+    setIssueCacheData,
   }
 }
 
