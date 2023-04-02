@@ -1,16 +1,25 @@
 <script setup lang="ts">
 import VueMarkdown from 'vue-markdown-render';
 
+import { useIssue } from 'src/issues/composables/useIssue';
+
 import { Issue, State } from 'src/issues/models/issue.model';
 import { timeSince } from 'src/utils/time-since';
 
-defineProps<{
+const props = defineProps<{
   issue: Issue;
 }>();
+
+const { prefetchIssue } = useIssue(props.issue.number, { enabled: false });
+
+const onMoouseEnter = () => {
+  console.info('onMoouseEnter', props.issue.number);
+  prefetchIssue(props.issue.number);
+};
 </script>
 
 <template>
-  <q-card class="text-black col-12 q-mb-md" flat bordered>
+  <q-card @mouseenter="onMoouseEnter" class="text-black col-12 q-mb-md" flat bordered>
     <q-item>
       <q-item-section avatar>
         <q-avatar>

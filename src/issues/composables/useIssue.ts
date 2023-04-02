@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/vue-query'
+import { useQuery, useQueryClient } from '@tanstack/vue-query'
 
 import { Comment, Issue } from '../models/issue.model'
 import { useFetch } from 'src/composable/useFetch'
@@ -25,11 +25,16 @@ const getIssueComments = async (id: number) => {
   return data.value
 }
 
-export const useIssue = (issueId: number) => {
+export const useIssue = (issueId: number, options?: Options) => {
+  const queryClient = useQueryClient()
+
+  const { enabled = true } = options || {}
+
   const issueQuery = useQuery(
     ['issue', issueId],
     () => getIssue(issueId),
     {
+      enabled,
       staleTime: 1000 * 60 * 60,
     }
   )
@@ -39,13 +44,37 @@ export const useIssue = (issueId: number) => {
     () => getIssueComments(issueId),
     // () => getIssueComments(issueQuery.data.value?.number || 0),
     {
+      enabled,
       staleTime: 1000 * 60,
       // enabled: computed(() => !!issueQuery.data.value) // Realiza la peticion si el valor de issueQuery.data.value es true
     }
   )
 
+  const prefetchIssue = (issueNumber: number) => {
+    queryClient.prefetchQuery(
+      ['issue', issueNumber],
+      () => getIssue(issueNumber),
+      {
+        staleTime: 1000 * 60 * 60,
+      }
+    )
+
+    queryClient.prefetchQuery(
+      ['issue', issueId, 'comments'],
+      () => getIssueComments(issueId),
+      {
+        staleTime: 1000 * 60,
+      }
+    )
+  }
+
   return {
     issueQuery,
     commentsQuery,
+    prefetchIssue,
   }
+}
+
+interface Options {
+  enabled?: boolean;
 }
