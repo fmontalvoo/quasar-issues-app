@@ -1,13 +1,15 @@
 <script setup lang="ts">
+import { useIssue } from '../composables/useIssue';
+
 import LoaderSpinner from 'src/shared/components/LoaderSpinner.vue';
 import IssueCard from 'src/issues/components/issue-list/IssueCard.vue';
-import { useIssue } from '../composables/useIssue';
+import IssueCommentCard from 'src/issues/components/issue-list/IssueCommentCard.vue';
 
 const props = defineProps<{
   id: number;
 }>();
 
-const { issueQuery } = useIssue(props.id);
+const { issueQuery, commentsQuery } = useIssue(props.id);
 </script>
 
 <template>
@@ -19,9 +21,15 @@ const { issueQuery } = useIssue(props.id);
       {{ issueQuery.error.value }}
     </span>
     <IssueCard v-else :issue="issueQuery.data.value!" />
-    <LoaderSpinner text="" :thickness="1" size="2rem" color="white" />
     <div class="column">
-      <span class="text-h5 q-mb-md">Comments (7)</span>
+      <LoaderSpinner v-if="commentsQuery.isLoading.value" text="" :thickness="1" size="2rem" color="white" />
+      <span class="text-h5 flex flex-center" style="color:red" v-else-if="issueQuery.error.value">
+        {{ issueQuery.error.value }}
+      </span>
+      <div v-else>
+        <span class="text-h5 q-mb-md">Comments ({{ issueQuery.data.value?.comments }})</span>
+        <IssueCommentCard v-for="comment of commentsQuery.data.value" :key="comment.id" :comment="comment" />
+      </div>
     </div>
   </div>
 </template>

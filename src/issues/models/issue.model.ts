@@ -33,6 +33,21 @@ export interface Issue {
   state_reason: null;
 }
 
+export interface Comment {
+  url: string;
+  html_url: string;
+  issue_url: string;
+  id: number;
+  node_id: string;
+  user: User;
+  created_at: Date;
+  updated_at: Date;
+  author_association: string;
+  body: string;
+  reactions: Reactions;
+  performed_via_github_app: null;
+}
+
 export enum AuthorAssociation {
   Collaborator = "COLLABORATOR",
   Contributor = "CONTRIBUTOR",
