@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
 import { useIssues } from '../composables/useIssues';
+import { useLabels } from '../composables/useLabels';
 
 import FloatingButtons from '../components/FloatingButtons.vue';
 import NewIssueDialog from '../components/NewIssueDialog.vue';
@@ -9,9 +12,13 @@ import LoaderSpinner from 'src/shared/components/LoaderSpinner.vue';
 import FilterSelector from '../components/filter-selector/FilterSelector.vue';
 
 const { issuesQuery } = useIssues();
+const { labelsQuery } = useLabels();
+
+const isOpen = ref<boolean>(false)
 
 const addIssue = () => {
   console.log('Add issue');
+  isOpen.value = true;
 };
 </script>
 
@@ -47,7 +54,7 @@ const addIssue = () => {
     }
   ]" />
 
-  <NewIssueDialog />
+  <NewIssueDialog :is-open="isOpen" :labels="labelsQuery.data.value?.map(l => l.name) ?? []" @close="isOpen = false" />
 </template>
 
 <style scoped></style>

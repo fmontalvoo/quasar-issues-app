@@ -19,7 +19,7 @@ export const useLabels = () => {
   const store = useIssuesStore();
   const { labels } = storeToRefs(store);
 
-  const lbls = useQuery(
+  const labelsQuery = useQuery(
     ['labels'],
     getLabels,
     {
@@ -28,7 +28,7 @@ export const useLabels = () => {
   )
 
   return {
-    lbls,
+    labelsQuery,
     selectedLabels: labels,
     toggleLabel: store.toggleLabel
   }
