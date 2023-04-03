@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { useIssues } from '../composables/useIssues';
+
 import FloatingButtons from '../components/FloatingButtons.vue';
+import NewIssueDialog from '../components/NewIssueDialog.vue';
+
 import IssueList from '../components/issue-list/IssueList.vue';
 import LoaderSpinner from 'src/shared/components/LoaderSpinner.vue';
 import FilterSelector from '../components/filter-selector/FilterSelector.vue';
-import { useIssues } from '../composables/useIssues';
 
 const { issuesQuery } = useIssues();
 
@@ -41,14 +44,10 @@ const addIssue = () => {
       color: 'primary',
       icon: 'add',
       size: 'md',
-    },
-    {
-      action: addIssue,
-      color: 'secondary',
-      icon: 'navigation',
-      size: 'md',
-    },
+    }
   ]" />
+
+  <NewIssueDialog />
 </template>
 
 <style scoped></style>
