@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, toRef, watch } from 'vue';
 
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
+
+import { useCreateIssue } from '../composables/useCreateIssue';
 
 const props = defineProps<{
   isOpen: boolean;
@@ -14,13 +16,15 @@ const emits = defineEmits<{
   (event: 'add', ...args: any[]): void;
 }>();
 
+const { issueMutation } = useCreateIssue();
+
 const title = ref<string>('')
 const labels = ref<string[]>([])
 const description = ref<string>('')
 
 const isOpen = ref<boolean>(false)
 
-watch(() => props.isOpen, (value) => {
+watch(toRef(props, 'isOpen'), (value) => {
   isOpen.value = value;
 });
 </script>
@@ -40,7 +44,8 @@ watch(() => props.isOpen, (value) => {
 
             <q-space />
 
-            <q-input dense class="q-mb-sm" filled v-model="title" label="Title" />
+            <q-input dense class="q-mb-sm" filled v-model="title" label="Title"
+              :rules="[value => !!value || 'Title is required']" />
             <q-select dense class="q-mb-sm" filled v-model="labels" multiple :options="props.labels" use-chips stack-label
               label="Labels" />
 
@@ -50,7 +55,7 @@ watch(() => props.isOpen, (value) => {
           <q-card-actions class="row" align="right">
             <q-btn flat label="Cancel" color="seconf" @click="emits('close')" />
             <!-- <q-space /> -->
-            <q-btn flat label="Add" color="primary" @click="emits('add')" />
+            <q-btn flat type="submit" label="Add" color="primary" @click="emits('add')" />
           </q-card-actions>
         </q-form>
       </q-card>
