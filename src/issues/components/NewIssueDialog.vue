@@ -26,6 +26,18 @@ const isOpen = ref<boolean>(false)
 watch(toRef(props, 'isOpen'), (value) => {
   isOpen.value = value;
 });
+
+watch(() => issueMutation.isSuccess.value, (isSuccess) => {
+  if (isSuccess) {
+    title.value = '';
+    labels.value = [];
+    description.value = '';
+
+    issueMutation.reset();
+
+    emits('close');
+  }
+});
 </script>
 
 <template>
