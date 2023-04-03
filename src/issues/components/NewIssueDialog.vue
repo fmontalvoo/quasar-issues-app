@@ -13,7 +13,6 @@ const props = defineProps<{
 
 const emits = defineEmits<{
   (event: 'close'): void;
-  (event: 'add', ...args: any[]): void;
 }>();
 
 const { issueMutation } = useCreateIssue();
@@ -33,7 +32,7 @@ watch(toRef(props, 'isOpen'), (value) => {
   <div class="q-pa-md q-gutter-sm">
     <q-dialog v-model="isOpen" position="bottom" persistent>
       <q-card style="width: 500px">
-        <q-form>
+        <q-form @submit="issueMutation.mutate({ title, description, labels })">
           <q-linear-progress :value="1" color="primary" />
 
           <q-card-section class="column no-wrap">
@@ -53,9 +52,9 @@ watch(toRef(props, 'isOpen'), (value) => {
           </q-card-section>
 
           <q-card-actions class="row" align="right">
-            <q-btn flat label="Cancel" color="seconf" @click="emits('close')" />
+            <q-btn :disable="issueMutation.isLoading.value" flat label="Cancel" color="seconf" @click="emits('close')" />
             <!-- <q-space /> -->
-            <q-btn flat type="submit" label="Add" color="primary" @click="emits('add')" />
+            <q-btn :disable="issueMutation.isLoading.value" flat type="submit" label="Add" color="primary" />
           </q-card-actions>
         </q-form>
       </q-card>

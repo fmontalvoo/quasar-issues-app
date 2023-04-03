@@ -25,6 +25,10 @@ const getIssueComments = async (id: number) => {
   return data.value
 }
 
+interface Options {
+  enabled?: boolean;
+}
+
 export const useIssue = (issueId: number, options?: Options) => {
   const queryClient = useQueryClient()
 
@@ -78,8 +82,4 @@ export const useIssue = (issueId: number, options?: Options) => {
     prefetchIssue,
     setIssueCacheData,
   }
-}
-
-interface Options {
-  enabled?: boolean;
 }

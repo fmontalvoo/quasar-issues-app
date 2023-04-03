@@ -33,6 +33,12 @@ export interface Issue {
   state_reason: null;
 }
 
+export interface IssueCreate {
+  title: string;
+  description: string;
+  labels: string[];
+}
+
 export interface Comment {
   url: string;
   html_url: string;
