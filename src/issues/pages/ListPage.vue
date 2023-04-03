@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import FloatingButtons from '../components/FloatingButtons.vue';
 import IssueList from '../components/issue-list/IssueList.vue';
 import LoaderSpinner from 'src/shared/components/LoaderSpinner.vue';
 import FilterSelector from '../components/filter-selector/FilterSelector.vue';
 import { useIssues } from '../composables/useIssues';
 
 const { issuesQuery } = useIssues();
+
+const addIssue = () => {
+  console.log('Add issue');
+};
 </script>
 
 <template>
@@ -29,6 +34,21 @@ const { issuesQuery } = useIssues();
       <IssueList v-else :issues="issuesQuery.data.value!" />
     </div>
   </div>
+
+  <FloatingButtons :buttons="[
+    {
+      action: addIssue,
+      color: 'primary',
+      icon: 'add',
+      size: 'md',
+    },
+    {
+      action: addIssue,
+      color: 'secondary',
+      icon: 'navigation',
+      size: 'md',
+    },
+  ]" />
 </template>
 
 <style scoped></style>
